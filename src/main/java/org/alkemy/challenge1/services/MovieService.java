@@ -61,4 +61,12 @@ public class MovieService {
         return repository.findAll();
     }
 
+    public List<Movie> getMoviesSortedByDateAsc () {
+        return repository.findByOrderByCreationDateAsc();
+    }
+
+    public List<Movie> getMoviesSortedByDateDesc () {
+        return repository.findByOrderByCreationDateDesc();
+    }
+
 }

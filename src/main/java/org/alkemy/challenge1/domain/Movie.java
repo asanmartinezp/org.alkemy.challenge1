@@ -1,16 +1,23 @@
 package org.alkemy.challenge1.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import org.alkemy.challenge1.JsonViews.Views;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 
 import javax.persistence.*;
 
 @Entity
 public class Movie {
     private @Id @GeneratedValue Long id;
+    @JsonView(Views.Public.class)
     private String title;
+    @JsonView(Views.Public.class)
     private String picture;
+    @JsonView(Views.Public.class)
     private Date creationDate;
     private int rating;
 
@@ -56,6 +63,7 @@ public class Movie {
         return title;
     }
 
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -95,5 +103,6 @@ public class Movie {
     public void removeCharacter (Long idCharacter) {
         this.dcharacters.removeIf(c -> c.getId() == idCharacter);
     }
+
 
 }

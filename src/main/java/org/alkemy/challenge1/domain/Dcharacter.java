@@ -1,13 +1,24 @@
 package org.alkemy.challenge1.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import org.alkemy.challenge1.JsonViews.Views;
+
 import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Dcharacter {
 
     private @Id @GeneratedValue Long id;
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
+
+    @JsonView(Views.Public.class)
     private String name;
+    @JsonView(Views.Public.class)
     private String picture;
     private int age;
     private int weight;
@@ -106,5 +117,17 @@ public class Dcharacter {
     }
     public void removeMovie (Long movieId) {
         this.movies.removeIf(m -> m.getId() == movieId);
+    }
+
+    public Movie getMovieById (Long movieId) {
+        Movie rtr = null;
+        List<Movie> charMovs = this.movies.stream().filter(item -> item.getId()
+                    .equals(movieId))
+                    .collect(Collectors.toList());
+
+            if(!charMovs.isEmpty()) {
+                rtr = charMovs.get(0);
+            }
+            return rtr;
     }
 }

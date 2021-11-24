@@ -2,7 +2,9 @@ package org.alkemy.challenge1.domain;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Genre {

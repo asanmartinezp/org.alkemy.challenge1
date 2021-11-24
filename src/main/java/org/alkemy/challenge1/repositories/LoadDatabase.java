@@ -38,6 +38,7 @@ public class LoadDatabase {
             Movie mo1 = new Movie("Title 1", "Movie pic 1", new SimpleDateFormat("dd/MM/yyyy").parse("10/12/1990"), 5);
             Movie mo2 = new Movie("Title 2", "Movie pic 2", new SimpleDateFormat("dd/MM/yyyy").parse("1/01/1984"), 3);
             Movie mo3 = new Movie("Title 3", "Movie pic 3", new SimpleDateFormat("dd/MM/yyyy").parse("1/01/1940"), 4);
+            Movie mo4 = new Movie("Title 4", "Movie pic 4", new SimpleDateFormat("dd/MM/yyyy").parse("1/01/1950"), 3);
 
             Genre ge1 = new Genre("Genre 1", "GenPic 1");
             Genre ge2 = new Genre("Genre 2", "GenPic 2");
@@ -54,18 +55,19 @@ public class LoadDatabase {
             movSrv.addUpdateMovie(mo1);
             movSrv.addUpdateMovie(mo2);
             movSrv.addUpdateMovie(mo3);
-            movSrv.addDcharacterToMovie(mo1.getId(), char1); // Not working with cascade.ALL. It works with cascade.MERGE
+            movSrv.addUpdateMovie(mo4);
+//            movSrv.addDcharacterToMovie(mo1.getId(), char1); // Not working with cascade.ALL. It works with cascade.MERGE
             charSrv.addMovieToDcharacter(char1.getId(), mo1); // https://stackoverflow.com/questions/21574236/how-to-fix-org-hibernate-lazyinitializationexception-could-not-initialize-prox
-
+            charSrv.addMovieToDcharacter(char2.getId(), mo1);
+            charSrv.addMovieToDcharacter(char3.getId(), mo2);
 
             genSrv.addUpdateGenre(ge1);
             genSrv.addUpdateGenre(ge2);
             genSrv.addUpdateGenre(ge3);
 
             genSrv.addMovie(ge1.getId(),mo1); //Detached entity. It works with cascade.MERGE
+            genSrv.addMovie(ge1.getId(),mo2);
 
-            Object a = charSrv.getDcharacters();
-            Object l = 1;
 
 //            log.info("Preloading " + dcharRepository.save(new Dcharacter("Name 1", "Pic 1",10, 40, "hero", mo1)));
 //            log.info("Preloading " + dcharRepository.save(new Dcharacter("Name 2", "Pic 2",40, 80, "wut", mo2)));
