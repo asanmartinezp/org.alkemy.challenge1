@@ -6,6 +6,7 @@ import org.alkemy.challenge1.JsonViews.Views;
 import org.alkemy.challenge1.domain.Dcharacter;
 import org.alkemy.challenge1.repositories.DcharacterRepository;
 import org.alkemy.challenge1.services.DcharacterService;
+import org.alkemy.challenge1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,6 @@ public class DcharacterController {
 
     @Autowired
     DcharacterService charSrv;
-
 
     @RequestMapping(value = "/characters", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
