@@ -1,18 +1,15 @@
 package org.alkemy.challenge1.authentication;
 
-import org.alkemy.challenge1.domain.User;
 import org.alkemy.challenge1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -34,6 +31,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody User usr) {
 
         Authentication authentication = authenticationManager.authenticate(
@@ -44,10 +42,11 @@ public class AuthController {
 
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        return ResponseEntity.ok(new Response("Bearer " + token));
+        return ResponseEntity.ok(new TokenView(token));
     }
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> registerUser(@Valid @RequestBody User usr_unsecure) {
         if (usrSrv.emailExists(usr_unsecure.getEmail())) {
             return ResponseEntity

@@ -1,7 +1,6 @@
 package org.alkemy.challenge1.authentication;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.alkemy.challenge1.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

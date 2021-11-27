@@ -1,13 +1,14 @@
-package org.alkemy.challenge1.domain;
-
+package org.alkemy.challenge1.authentication;
 
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 public class User {
+    @Email(message = "Invalid e-mail address")
     private @Id String email;
 
     public User() {

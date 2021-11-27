@@ -1,6 +1,6 @@
 package org.alkemy.challenge1.services;
 
-import org.alkemy.challenge1.domain.User;
+import org.alkemy.challenge1.authentication.User;
 import org.alkemy.challenge1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,5 @@
 package org.alkemy.challenge1.authentication;
 
-import org.alkemy.challenge1.domain.User;
 import org.alkemy.challenge1.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

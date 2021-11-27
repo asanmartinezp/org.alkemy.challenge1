@@ -1,23 +1,15 @@
 package org.alkemy.challenge1.domain;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import org.alkemy.challenge1.JsonViews.Views;
-
+import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
-import javax.persistence.*;
-
 @Entity
 public class Movie {
     private @Id @GeneratedValue Long id;
-    @JsonView(Views.Public.class)
     private String title;
-    @JsonView(Views.Public.class)
     private String picture;
-    @JsonView(Views.Public.class)
     private Date creationDate;
     private int rating;
 
@@ -89,7 +81,7 @@ public class Movie {
     }
 
     public void setRating(int rating) throws Exception {
-        if (rating >= 1 && rating <= 5) {
+        if (!(rating >= 1 && rating <= 5)){
             throw new Exception("Rating value is incorrect. It must be between 1 and 5.");
         }
 

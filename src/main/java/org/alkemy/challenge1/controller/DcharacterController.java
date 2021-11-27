@@ -1,51 +1,48 @@
 package org.alkemy.challenge1.controller;
 
 
-import com.fasterxml.jackson.annotation.JsonView;
-import org.alkemy.challenge1.JsonViews.Views;
+import org.alkemy.challenge1.JsonViews.DcharacterView;
 import org.alkemy.challenge1.domain.Dcharacter;
-import org.alkemy.challenge1.repositories.DcharacterRepository;
 import org.alkemy.challenge1.services.DcharacterService;
-import org.alkemy.challenge1.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import java.rmi.server.ExportException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 
-@RestController
+@RepositoryRestController
 public class DcharacterController {
 
     @Autowired
     DcharacterService charSrv;
 
-    @RequestMapping(value = "/characters", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    @JsonView(Views.Public.class)
+    @GetMapping("/characters")
     public @ResponseBody
-    List<Dcharacter> getCharacters (@RequestParam(required = false)String name, @RequestParam(required = false)Integer age, @RequestParam(required = false)Long movies) {
-        List<Dcharacter> lstRtr = charSrv.getDcharacters();
+    ResponseEntity<?> getCharacters (@RequestParam(required = false)String name, @RequestParam(required = false)Integer age, @RequestParam(required = false)Long movies) {
+        List<Dcharacter> lst = charSrv.getDcharacters();
 
         if(name != null) {
-            lstRtr = lstRtr.stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
+            lst = lst.stream().filter(item -> item.getName().equals(name)).collect(Collectors.toList());
         }
         if(age != null) {
-            lstRtr = lstRtr.stream().filter(item -> item.getAge() == age).collect(Collectors.toList());
+            lst = lst.stream().filter(item -> item.getAge() == age).collect(Collectors.toList());
         }
         if(movies != null) {
-                lstRtr = lstRtr.stream().filter(item ->  {
+                lst = lst.stream().filter(item ->  {
                     if(item.getMovieById(movies) != null)
                         return Objects.equals(item.getMovieById(movies).getId(), movies);
                     return false;
                 }).collect(Collectors.toList());
         }
 
-        return lstRtr;
+        List<DcharacterView> dcv = DcharacterView.convertFromDcharacterList(lst);
+        return ResponseEntity.ok(dcv);
 
 
 //       return charSrv.getDcharacters().stream().filter(item -> {

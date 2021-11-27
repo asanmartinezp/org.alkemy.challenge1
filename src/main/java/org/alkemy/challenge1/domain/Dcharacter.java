@@ -1,36 +1,34 @@
 package org.alkemy.challenge1.domain;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import org.alkemy.challenge1.JsonViews.Views;
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
 public class Dcharacter {
 
     private @Id @GeneratedValue Long id;
-
-    public Set<Movie> getMovies() {
-        return movies;
-    }
-
-    @JsonView(Views.Public.class)
     private String name;
-    @JsonView(Views.Public.class)
     private String picture;
     private int age;
     private int weight;
     private String description;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<Movie> movies = new HashSet<>();
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Movie> getMovies() {
+        return movies;
+    }
     public void setMovies(Set<Movie> movies) {
         this.movies = movies;
     }

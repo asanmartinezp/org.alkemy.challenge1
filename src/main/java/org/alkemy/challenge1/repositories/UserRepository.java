@@ -1,6 +1,6 @@
 package org.alkemy.challenge1.repositories;
 
-import org.alkemy.challenge1.domain.User;
+import org.alkemy.challenge1.authentication.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
