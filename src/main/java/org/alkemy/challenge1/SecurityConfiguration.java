@@ -55,9 +55,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers("/auth/**").permitAll()
-                .antMatchers("/h2-console/**").permitAll().anyRequest().authenticated() //Disable this line
-                .and().headers().frameOptions().sameOrigin();
-               // .anyRequest().authenticated(); //And enable this one
+//                .antMatchers("/h2-console/**").permitAll().anyRequest().authenticated()
+//                .and().headers().frameOptions().sameOrigin();
+                .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
