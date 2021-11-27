@@ -16,5 +16,5 @@ Algunos requerimientos no han sido posible de implementar debido a restricciones
  
  La aplicación utiliza gradle para la administración de dependencias por lo que puede ser compilada y ejecutada mediante:
  
- - `./gradlew` desde una terminal en Linux 
--  `gradlew.bat` desde la linea de comandos de Windows
+ - `./gradlew bootRun` desde una terminal en Linux 
+-  `gradlew.bat bootRun` desde la linea de comandos de Windows
